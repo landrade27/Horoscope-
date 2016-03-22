@@ -1,5 +1,9 @@
 
-print "What is your birthday? EX: 01/09/1989"
+import requests
+
+
+
+print "What is your birthday (month and day)? Ex: 01/09"
 birthday= raw_input()  
 birthday= birthday.split("/")
 print birthday 
@@ -24,26 +28,27 @@ def birthday_sign (month, day):
 		return potential_sign["less_sign"]
 	else:
 		return potential_sign["greater_sign"]
-print birthday_sign (int(birthday[1]), int(birthday[0]))
+chosen_sign = birthday_sign (int(birthday[0]), int(birthday[1]))
 
-print "What type of reading would you like?"
-print raw_input ("A: Yearly Horoscope reading")		
-print raw_input ("B: Monthly Horoscope Reading")
-print raw_input ("C: Weekly Horoscope reading")
-reading = raw_input()
+print """What type of reading would you like?
+A: Daily Horoscope reading
+B: Weekly Horoscope Reading
+C: Monthly Horoscope reading"""
 
-# def type_of_reading ():
-# 	if raw_input= "A":
-# 		print yearly_reading #need API for yearly horsicope reading 
-# 	if raw_input= "B":
-# 		print monthly_reading #need API for monthly horiscope reading 
-# 	if raw_input = "C":
-# 		print weekly_reading #need API for weekly horiscope reading 
-# 	else:
-# 		print "Please enter A, B or C, in upper case to get to your reading" 
+user_input = raw_input()
 
-# def birthday_reading ( )
-# # reading = raw_input ("What type of reading would you like? A) Weekly Horiscope Reading B) Monthly Horiscope Reading C) Yearly Horiscope Reading")
+readings_requests= requests.get("http://www.api.littleastro.com/restserver/index.php/api/horoscope/readings/format/json")
+readings = readings_requests.json()
+sign_reading = None
 
+for sign in readings: 
+	if sign ["Sign"]== chosen_sign: 
+		reading=sign 
 
+if user_input == "A":
+	print sign ["Daily_Horoscope"]
+elif user_input == "B":
+	print sign ["Weekly_Horoscope"]
+elif user_input == "C":
+	print sign ["Monthly_Horoscope"]
 
