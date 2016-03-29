@@ -1,13 +1,12 @@
+#!/usr/bin/env python
 
 import requests
 
-
-
 print "What is your birthday (month and day)? Ex: 01/09"
-birthday= raw_input()  
+birthday= raw_input()
 birthday= birthday.split("/")
-print birthday 
-signs_dictionary = { 
+print birthday
+signs_dictionary = {
 				1: {"split_day" :19, "less_sign": "Capricorn", "greater_sign": "Aquarius"},
 				2: {"split_day":18, "less_sign": "Aquarius", "greater_sign": "Pisces"},
 				3: {"split_day":20, "less_sign": "Pisces", "greater_sign": "Aries"},
@@ -41,9 +40,9 @@ readings_requests= requests.get("http://www.api.littleastro.com/restserver/index
 readings = readings_requests.json()
 sign_reading = None
 
-for sign in readings: 
-	if sign ["Sign"]== chosen_sign: 
-		reading=sign 
+for sign in readings:
+	if sign ["Sign"]== chosen_sign:
+		reading=sign
 
 if user_input == "A":
 	print sign ["Daily_Horoscope"]
@@ -51,4 +50,3 @@ elif user_input == "B":
 	print sign ["Weekly_Horoscope"]
 elif user_input == "C":
 	print sign ["Monthly_Horoscope"]
-
